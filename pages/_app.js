@@ -5,8 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from 'utils/styles/theme'
 import 'utils/styles/globals.scss'
 
-function MyApp({ Component, pageProps }) {
-  
+const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
@@ -18,7 +17,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>My page</title>
+        <title>Playground</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>

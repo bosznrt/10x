@@ -1,14 +1,17 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { useFormik } from 'formik'
 
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginSchema } from 'utils/schemas'
+import { SignupSchema } from 'utils/schemas'
 
 import { Layout } from 'components/molecules'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,15 +22,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const classes = useStyles()
 
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: ''
+      password: '',
+      confirmPassword: '',
+      acceptTerms: false
     },
-    validationSchema: LoginSchema,
+    validationSchema: SignupSchema,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2))
       console.log(values)
@@ -36,7 +41,9 @@ const LoginPage = () => {
 
   return (
     <Layout flex haveGutter>
-      <Image src="/logo.svg" width="160" height="80" />
+      <Typography variant="h5" gutterBottom>
+        สร้างบัญชีผู้ใช้
+      </Typography>
       <form className={classes.root} onSubmit={formik.handleSubmit} autoComplete="off">
         <TextField
           fullWidth
@@ -59,17 +66,37 @@ const LoginPage = () => {
           error={formik.touched.password && !!formik.errors.password}
           helperText={formik.touched.password && formik.errors.password}
         />
-        <Button color="primary" variant="contained" type="submit" fullWidth>
-          เข้าสู่ระบบ
+        <TextField
+          fullWidth
+          id="confirmPassword"
+          name="confirmPassword"
+          label="ยืนยันรหัสผ่าน"
+          type="password"
+          value={formik.values.confirmPassword}
+          onChange={formik.handleChange}
+          error={formik.touched.confirmPassword && !!formik.errors.confirmPassword}
+          helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+        />
+
+        <FormControlLabel
+          control={<Checkbox color="primary" />}
+          id="acceptTerms"
+          name="acceptTerms"
+          value={formik.values.acceptTerms}
+          onChange={formik.handleChange}
+          label="ฉันยอมรับเงื่อนไขและข้อตกลงเกี่ยวกับการใช้งาน"
+        />
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          fullWidth
+          disabled={!formik.values.acceptTerms}>
+          ยืนยัน
         </Button>
-        <Link href={`/signup`}>
-          <Button color="primary" variant="outlined" fullWidth>
-            สร้างบัญชีผู้ใช้
-          </Button>
-        </Link>
       </form>
     </Layout>
   )
 }
 
-export default LoginPage
+export default SignUpPage
