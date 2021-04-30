@@ -1,5 +1,4 @@
-// import Container from '@material-ui/core/Container'
-import { Container } from 'components/atoms'
+import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import ClassNames from 'classnames'
 
