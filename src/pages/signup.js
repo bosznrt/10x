@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { SignupSchema } from 'utils/schemas'
 
-import { Layout } from 'components/molecules'
+import { AppContainer } from 'components/organisms'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +40,7 @@ const SignUpPage = () => {
   })
 
   return (
-    <Layout flex haveGutter>
+    <AppContainer layoutProps={{ flex: true, haveGutter: true }}>
       <Typography variant="h5" gutterBottom>
         สร้างบัญชีผู้ใช้
       </Typography>
@@ -95,7 +95,7 @@ const SignUpPage = () => {
           ยืนยัน
         </Button>
       </form>
-    </Layout>
+    </AppContainer>
   )
 }
 

@@ -1,27 +1,22 @@
 import { useFormik } from 'formik'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 import { makeStyles } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-import { Layout } from 'components/molecules'
+import { AppContainer } from 'components/organisms'
 
 import { PartySchema } from 'utils/schemas'
 
 const useStyles = makeStyles((theme) => {
   return {
-    root: { display: 'flex', justifyContent: 'center', alignItems: 'center' },
-    menuButton: {
-      position: 'fixed',
-      zIndex: 10000,
-      top: '4px',
-      left: '8px'
+    formContainer: {
+      minHeight: `calc(100vh - 56px)`,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '0px 8px'
     },
-    header: { margin: 'auto' },
     form: {
       '& > *': {
         marginTop: theme.spacing(1),
@@ -46,22 +41,8 @@ const CreatePartyPage = () => {
   })
 
   return (
-    <Layout>
-      <IconButton
-        edge="start"
-        className={classes.menuButton}
-        color="inherit"
-        aria-label="open drawer">
-        <ArrowBackIcon />
-      </IconButton>
-      <AppBar position="sticky" color="default">
-        <Toolbar>
-          <Typography variant="h6" className={classes.header}>
-            สร้างปาร์ตี้
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <div className="flex-center mx-4" style={{ minHeight: `calc(100vh - 56px)` }}>
+    <AppContainer haveNav haveBackButton title="สร้างปาร์ตี้">
+      <div className={classes.formContainer}>
         <form className={classes.form} onSubmit={formik.handleSubmit} autoComplete="off">
           <TextField
             fullWidth
@@ -88,7 +69,7 @@ const CreatePartyPage = () => {
           </Button>
         </form>
       </div>
-    </Layout>
+    </AppContainer>
   )
 }
 

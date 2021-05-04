@@ -1,15 +1,26 @@
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
-import ClassNames from 'classnames'
+import { makeStyles } from '@material-ui/core/styles'
 
-const Layout = ({ children, ...props }) => {
-  const { flex, boxClass, haveGutter = false } = props
+const useStyles = makeStyles((theme) => ({
+  box: {
+    minHeight: '100vh'
+  },
+  boxFlex: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+}))
 
-  const appliedClassBox = ClassNames('min-h-screen', boxClass, { 'flex-center': !!flex })
+const Layout = ({ children, flex = false,  haveGutter = false}) => {
+  const classes = useStyles()
 
   return (
     <Container maxWidth="sm" disableGutters={!haveGutter}>
-      <Box className={appliedClassBox}>{children}</Box>
+      <Box className={flex ? classes.boxFlex : classes.box}>{children}</Box>
     </Container>
   )
 }

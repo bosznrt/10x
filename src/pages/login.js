@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { LoginSchema } from 'utils/schemas'
 
-import { Layout } from 'components/molecules'
+import { AppContainer } from 'components/organisms'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +35,7 @@ const LoginPage = () => {
   })
 
   return (
-    <Layout flex haveGutter>
+    <AppContainer layoutProps={{ flex: true, haveGutter: true }}>
       <Image src="/logo.svg" width="160" height="80" />
       <form className={classes.root} onSubmit={formik.handleSubmit} autoComplete="off">
         <TextField
@@ -68,7 +68,7 @@ const LoginPage = () => {
           </Button>
         </Link>
       </form>
-    </Layout>
+    </AppContainer>
   )
 }
 
