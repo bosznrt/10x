@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
@@ -6,11 +7,15 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 import { makeStyles } from '@material-ui/core/styles'
 
 import faker from 'faker'
 
 import { AppContainer } from 'components/organisms'
+import { Backdrop } from 'components/atoms'
+import { useUser } from 'core/hooks'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -22,12 +27,24 @@ const useStyles = makeStyles((theme) => {
     },
     actions: {
       justifyContent: 'space-between'
+    },
+    fab: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
     }
   }
 })
 
 const Home = () => {
+  const [user] = useUser({ redirectTo: '/login' })
+
+  const router = useRouter()
   const classes = useStyles()
+
+  if (!user) {
+    return <Backdrop isOpen />
+  }
 
   return (
     <AppContainer haveNav title="ปาร์ตี้ทั้งหมด">
@@ -59,6 +76,15 @@ const Home = () => {
           )
         })}
       </Grid>
+      <Fab
+        aria-label="Add"
+        className={classes.fab}
+        color="primary"
+        onClick={() => {
+          router.push('/create')
+        }}>
+        <AddIcon />
+      </Fab>
     </AppContainer>
   )
 }

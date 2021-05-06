@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -27,8 +28,8 @@ const useStyles = makeStyles((theme) => {
 })
 
 const CreatePartyPage = () => {
+  const router = useRouter()
   const classes = useStyles()
-
   const formik = useFormik({
     initialValues: {
       name: ''
@@ -41,7 +42,13 @@ const CreatePartyPage = () => {
   })
 
   return (
-    <AppContainer haveNav haveBackButton title="สร้างปาร์ตี้">
+    <AppContainer
+      haveNav
+      haveBackButton
+      backAction={() => {
+        router.back()
+      }}
+      title="สร้างปาร์ตี้">
       <div className={classes.formContainer}>
         <form className={classes.form} onSubmit={formik.handleSubmit} autoComplete="off">
           <TextField

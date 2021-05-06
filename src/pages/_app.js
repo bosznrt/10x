@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import theme from 'utils/styles/theme'
-import 'utils/styles/globals.scss'
+import theme from 'styles/theme'
+import 'styles/globals.scss'
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {

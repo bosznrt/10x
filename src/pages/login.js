@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginSchema } from 'utils/schemas'
+import { LoginSchema } from 'core/schemas'
 
 import { AppContainer } from 'components/organisms'
 
