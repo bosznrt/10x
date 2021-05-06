@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import faker from 'faker'
 
 import { AppContainer } from 'components/organisms'
-import { Backdrop } from 'components/atoms'
+import { Loading } from 'components/molecules'
 import { useUser } from 'core/hooks'
 
 const useStyles = makeStyles((theme) => {
@@ -43,7 +43,7 @@ const Home = () => {
   const classes = useStyles()
 
   if (!user) {
-    return <Backdrop isOpen />
+    return <Loading />
   }
 
   return (
