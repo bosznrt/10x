@@ -15,7 +15,8 @@ import faker from 'faker'
 
 import { AppContainer } from 'components/organisms'
 import { Loading } from 'components/molecules'
-import { useUser } from 'core/hooks'
+import { useCustomer } from 'core/hooks'
+import { withAuth } from 'core/hocs'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -36,15 +37,9 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-const Home = () => {
-  const [user] = useUser({ redirectTo: '/login' })
-
+const Home = (props) => {
   const router = useRouter()
   const classes = useStyles()
-
-  if (!user) {
-    return <Loading />
-  }
 
   return (
     <AppContainer haveNav title="ปาร์ตี้ทั้งหมด">
@@ -58,7 +53,7 @@ const Home = () => {
                     component="img"
                     alt="Contemplative Reptile"
                     height="140"
-                    image={faker.image.image()}
+                    image={faker.image.imageUrl()}
                     title="Contemplative Reptile"
                   />
                   <CardContent>
@@ -89,4 +84,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default withAuth(Home)

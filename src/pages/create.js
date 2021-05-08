@@ -6,7 +6,9 @@ import Button from '@material-ui/core/Button'
 
 import { AppContainer } from 'components/organisms'
 
-import { PartySchema } from 'utils/schemas'
+import { PartySchema } from 'core/schemas'
+import { useCustomer } from 'core/hooks'
+import API from 'core/apis'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => {
 })
 
 const CreatePartyPage = () => {
+  const [_, { set }] = useCustomer()
   const router = useRouter()
   const classes = useStyles()
   const formik = useFormik({
@@ -35,9 +38,13 @@ const CreatePartyPage = () => {
       name: ''
     },
     validationSchema: PartySchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       // alert(JSON.stringify(values, null, 2))
       console.log(values)
+      // console.log('Hello')
+      // const { token } = await API.customers.signup(values)
+      // set(token)
+      // router.push('/')
     }
   })
 

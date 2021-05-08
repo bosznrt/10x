@@ -1,5 +1,5 @@
-import users from './userApi'
+import customers from './customerApi'
 
 export default (() => ({
-  users
+  customers
 }))()

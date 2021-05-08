@@ -8,24 +8,26 @@ const TOKEN_KEY = 'token'
 const USER_KEY = 'user'
 
 const getUser = () => {
-  return Cookies.get(USER_KEY)
+  const userString = Cookies.get(USER_KEY)
+
+  return userString ? JSON.parse(userString) : userString
 }
 
 const getToken = () => {
   return Cookies.get(TOKEN_KEY)
 }
 
-const useUser = ({ redirectTo, redirectIfFound }) => {
+const useUser = ({ redirectTo, redirectIfFound } = {}) => {
   const [user, setUser] = useState(getUser)
 
   const hasUser = !!user
 
   const set = useCallback((jwt) => {
     const decoded = decode(jwt)
-
     Cookies.set(TOKEN_KEY, jwt)
-    Cookies.set(USER_KEY, decoded)
+    Cookies.set(USER_KEY, JSON.stringify(decoded))
     setUser(decoded)
+    Router.push('/')
   }, [])
 
   const revoke = useCallback(() => {

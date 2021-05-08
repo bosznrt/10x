@@ -6,9 +6,11 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginSchema } from 'core/schemas'
-
 import { AppContainer } from 'components/organisms'
+
+import { LoginSchema } from 'core/schemas'
+import { useCustomer } from 'core/hooks'
+import API from 'core/apis'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const LoginPage = () => {
+  const [_, { set }] = useCustomer()
   const classes = useStyles()
 
   const formik = useFormik({
@@ -28,9 +31,9 @@ const LoginPage = () => {
       password: ''
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2))
-      console.log(values)
+    onSubmit: async (values) => {
+      const { token } = await API.customers.login(values)
+      set(token)
     }
   })
 

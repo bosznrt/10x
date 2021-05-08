@@ -11,7 +11,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { SignupSchema } from 'core/schemas'
 
 import { AppContainer } from 'components/organisms'
-
+import { useCustomer } from 'core/hooks'
+import API from 'core/apis'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SignUpPage = () => {
+  const [_, { set }] = useCustomer({ redirectTo: '/', redirectIfFound: true })
   const classes = useStyles()
 
   const formik = useFormik({
@@ -33,9 +35,10 @@ const SignUpPage = () => {
       acceptTerms: false
     },
     validationSchema: SignupSchema,
-    onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2))
-      console.log(values)
+    onSubmit: async (values) => {
+      const { token } = await API.customers.signup(values)
+      set(token)
+      router.push('/')
     }
   })
 
